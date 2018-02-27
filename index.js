@@ -26,8 +26,17 @@ server.on('error', function(){
 server.on('listening',function(){
     console.log("Servidor iniciado!");
 });
+//----------------------------------------------
 
-//app.set('view engine', 'ejs');
+
+
+//INCLUIMOS BODY-PARSER
+const bodyParser = require('body-parser');
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+//-----------------------------------------------
+
+
 //METODOS GET Y POST
 app.get('/', (req, res)=>res.send("Peticion GET"));
 app.get('/libros', (req, res)=>res.send("Peticion GET libros"));
@@ -50,19 +59,28 @@ app.get('/provincias', (req, res)=>{res.send(
 
 )});
 
-app.post('/provincias/:nombre/:cp', (req, res)=>{res.send(req.params)});
+//5
+app.post('/provincias/', (req, res)=>{
+    res.send(req.body)
+});
+
+//6
 app.get('/get/:id', (req, res)=>res.send("Peticion GET"));
-app.post('/edit/:id', (req, res)=>res.send(`Editando el dato ${req.params.id}`));
+app.post('/edit/:id', (req, res)=>{
+    console.log(req.body);
+    res.send(req.body);
+});
 app.get('/delete/:id', (req, res)=>res.send(`Eliminando el dato ${req.params.id}`));
 
 //8
-app.post('/login', (req, res)=>{
+//Esta no es la manera mas correcta para enviar un formulario de login. Mejor es usar req.body enviando codificado desde un form
+app.post('/login', (req, res)=>{ 
     if (req.query.username == "admin" && req.query.password == "admin") {
         var resultado = true;
-        return  res.send(resultado);
+        res.send(resultado);
     }else{
         var resultado = false;
-        return res.send(resultado);
+        res.send(resultado);
     }
 
 });
