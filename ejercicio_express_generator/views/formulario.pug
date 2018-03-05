@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/javascripts/jquery-3.3.1.js')
+    script(src='/javascripts/miscript.js')
+    title= title
+  body
+    h1 Formulario
+    form(action="http://localhost:3000/api/login" method="post" id="formualario")
+        label(for="nombre") Nombre
+        input(type="text" id="nombre" name="nombre" placeholder="Nombre")
+        br
+        label(for="password") Clave
+        input(type="password" id="password" name="password" placeholder="password")
+        br
+        input(type="submit" id="enviar" value="Enviar")
+    h1(id="hola")
